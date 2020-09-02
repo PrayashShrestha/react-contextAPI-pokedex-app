@@ -4,7 +4,7 @@ import { Row, Col, Card, CardBody, Button } from "reactstrap";
 import { PokedexContext } from "../context/ContextProvider";
 
 const PokemonList = () => {
-  const { onClicking, prevUrl, nextUrl } = useContext(PokedexContext);
+  const { onButtonClick, prevUrl, nextUrl } = useContext(PokedexContext);
   return (
     <div>
       <div className="container-fluid mt-5">
@@ -13,12 +13,12 @@ const PokemonList = () => {
             <Card className="border-danger border-weight-bold bg-info">
               <CardBody>
                 <Pokemons />
-                <Button onClick={onClicking} value={prevUrl}>
+                <Button onClick={onButtonClick} value={prevUrl}>
                   Prev
                 </Button>
                 <Button
                   className="float-right"
-                  onClick={onClicking}
+                  onClick={onButtonClick}
                   value={nextUrl}
                 >
                   Next

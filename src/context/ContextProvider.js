@@ -18,6 +18,7 @@ export const PokedexProvider = (props) => {
   let [url, setUrl] = useState(
     "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20"
   );
+  let [pokemonUrl, setPokemonUrl] = useState("");
   const [nextUrl, setNextUrl] = useState("");
   const [prevUrl, setPrevUrl] = useState("");
 
@@ -37,10 +38,16 @@ export const PokedexProvider = (props) => {
     dispatch({ type: SET_LIST, payload: list });
   };
 
-  const onClicking = (e) => {
+  const onButtonClick = (e) => {
+    if (!e.target.value) return;
+
     dispatch({ type: CLEAR });
-    console.log(e.target.value);
     setUrl(e.target.value);
+  };
+  const onNameClick = (e) => {
+    let id = e.target.value;
+    let pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${id}`;
+    console.log(pokemonUrl);
   };
 
   //return Provider
@@ -58,7 +65,8 @@ export const PokedexProvider = (props) => {
 
         setData,
         setPokemonList,
-        onClicking,
+        onButtonClick,
+        onNameClick,
       }}
     >
       {props.children}
