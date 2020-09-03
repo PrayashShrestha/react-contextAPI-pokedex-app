@@ -1,4 +1,4 @@
-import { SET_DATA, SET_LIST, SET_LOADING, CLEAR } from "./Types";
+import { SET_DATA, SET_LIST, SET_LOADING, CLEAR, SET_SELECTED } from "./Types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -25,6 +25,13 @@ export default (state, action) => {
         ...state,
         datas: [],
         pokemonList: [],
+      };
+    case SET_SELECTED:
+      return {
+        ...state,
+        selectedPokemon: "",
+        selectedPokemon: action.payload,
+        loading: false,
       };
     default:
       return state;

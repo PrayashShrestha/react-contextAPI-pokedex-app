@@ -1,6 +1,6 @@
-import React, { createContext, useReducer, useState, useEffect } from "react";
+import React, { createContext, useReducer, useState } from "react";
 import PokedexReducer from "./PokedexReducer";
-import { SET_DATA, SET_LIST, SET_LOADING, CLEAR } from "./Types";
+import { SET_DATA, SET_LIST, SET_LOADING, CLEAR, SET_SELECTED } from "./Types";
 
 //create context
 export const PokedexContext = createContext();
@@ -12,15 +12,17 @@ export const PokedexProvider = (props) => {
     datas: [],
     pokemonList: [],
     loading: false,
+    selectedPokemon: "",
   };
 
   //url setup
   let [url, setUrl] = useState(
     "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20"
   );
-  let [pokemonUrl, setPokemonUrl] = useState("");
+  const [pokemonUrl, setPokemonUrl] = useState("");
   const [nextUrl, setNextUrl] = useState("");
   const [prevUrl, setPrevUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   //initialize Reducer
   const [state, dispatch] = useReducer(PokedexReducer, initialState);
@@ -38,6 +40,10 @@ export const PokedexProvider = (props) => {
     dispatch({ type: SET_LIST, payload: list });
   };
 
+  const setSelectedPokemon = (pokemon) => {
+    dispatch({ type: SET_SELECTED, payload: pokemon });
+  };
+
   const onButtonClick = (e) => {
     if (!e.target.value) return;
 
@@ -45,9 +51,14 @@ export const PokedexProvider = (props) => {
     setUrl(e.target.value);
   };
   const onNameClick = (e) => {
-    let id = e.target.value;
-    let pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${id}`;
-    console.log(pokemonUrl);
+    setPokemonUrl("");
+    let id = "";
+    let idUrl = "";
+
+    id = e.target.value;
+    idUrl = `https://pokeapi.co/api/v2/pokemon/${id}`;
+
+    setPokemonUrl(idUrl);
   };
 
   //return Provider
@@ -58,10 +69,15 @@ export const PokedexProvider = (props) => {
         setLoading,
         url,
         setUrl,
+        pokemonUrl,
+        setPokemonUrl,
         nextUrl,
         setNextUrl,
         prevUrl,
         setPrevUrl,
+        imageUrl,
+        setImageUrl,
+        setSelectedPokemon,
 
         setData,
         setPokemonList,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, NavbarBrand, Form, Input, FormGroup } from "reactstrap";
+import { Navbar, NavbarBrand } from "reactstrap";
 
 const Header = () => {
   return (
@@ -11,14 +11,6 @@ const Header = () => {
         >
           PokeDex
         </NavbarBrand>
-        <Form className="mx-auto ">
-          <Input
-            className="border-dark"
-            type="text"
-            name="search"
-            placeholder="Search..."
-          />
-        </Form>
       </Navbar>
     </div>
   );

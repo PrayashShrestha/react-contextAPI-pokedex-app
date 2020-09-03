@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import PokemonList from "./components/PokemonList";
+import PokemonList from "./components/list/PokemonList";
 import Header from "./layouts/Header";
 import { PokedexContext } from "./context/ContextProvider";
+import PokemonDetail from "./components/show/PokemonDetail";
+import { Row, Col } from "reactstrap";
 const App = () => {
   const {
     states,
@@ -10,6 +12,7 @@ const App = () => {
     setData,
     setNextUrl,
     setPrevUrl,
+    pokemonUrl,
 
     setPokemonList,
   } = useContext(PokedexContext);
@@ -47,7 +50,10 @@ const App = () => {
   return (
     <div>
       <Header />
-      {loading ? <p>Loading....</p> : <PokemonList />}
+      <Row sm="2">
+        <Col sm="6"> {pokemonUrl ? <PokemonDetail /> : <></>}</Col>
+        <Col sm="6">{loading ? <p>Loading....</p> : <PokemonList />}</Col>
+      </Row>
     </div>
   );
 };
